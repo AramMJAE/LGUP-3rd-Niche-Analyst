@@ -143,6 +143,11 @@ export default function ResultPage() {
               <Download className="h-4 w-4 mr-2" />
               PDF 내보내기
             </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link href={`/summary/${submitNum}`}>
+                보고서 요약하기
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
