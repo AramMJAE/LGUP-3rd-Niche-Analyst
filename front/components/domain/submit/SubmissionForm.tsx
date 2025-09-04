@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // ✅ 추가
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,6 +12,7 @@ import { Toaster, toast } from "sonner";
 
 // 제출 폼의 전체 레이아웃과 상태를 관리하는 컴포넌트입니다.
 export function SubmissionForm() {
+  const router = useRouter(); // ✅ 라우터 훅 사용
   const [productName, setProductName] = useState("");
   const [category, setCategory] = useState("");
   const [budget, setBudget] = useState("");
@@ -37,11 +39,11 @@ export function SubmissionForm() {
       return;
     }
 
-    if (files.length === 0) {
-      toast.error("분석을 위한 관련 문서를 1개 이상 업로드해주세요.");
-      setIsLoading(false);
-      return;
-    }
+    // if (files.length === 0) {
+    //   toast.error("분석을 위한 관련 문서를 1개 이상 업로드해주세요.");
+    //   setIsLoading(false);
+    //   return;
+    // }
 
     // 폼 데이터 생성 (API 전송을 위해)
     const formData = {
@@ -58,22 +60,22 @@ export function SubmissionForm() {
     // API 호출 시뮬레이션
     setTimeout(() => {
       setIsLoading(false);
-      // 성공 후 폼 초기화
-      setProductName('');
-      setCategory('');
-      setBudget('');
-      setRequests('');
+      // ✅ 결과 페이지로 이동
+      router.push("/result/RPT-001");
+
+      // 필요하다면 이동 전에 상태 초기화도 가능
+      setProductName("");
+      setCategory("");
+      setBudget("");
+      setRequests("");
       setFiles([]);
-    }, 2000);
+    }, 1500);
   };
 
   return (
     <>
       <Toaster richColors position="top-center" />
-      <form
-        onSubmit={handleSubmit}
-        className="mx-auto max-w-7xl space-y-8"
-      >
+      <form onSubmit={handleSubmit} className="mx-auto max-w-7xl space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             분석 정보 입력
@@ -97,7 +99,10 @@ export function SubmissionForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">제품 카테고리</Label>
-              <CategoryAutocomplete value={category} onValueChange={setCategory} />
+              <CategoryAutocomplete
+                value={category}
+                onValueChange={setCategory}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="budget">광고 예산 (KRW)</Label>
@@ -131,7 +136,11 @@ export function SubmissionForm() {
                 removeFile={removeFile}
               />
             </div>
-            <Button type="submit" className="mt-auto w-full h-12 text-lg" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="mt-auto w-full h-12 text-lg"
+              disabled={isLoading}
+            >
               {isLoading ? "제출 중..." : "분석 요청하기 (500 토큰)"}
             </Button>
           </div>
@@ -140,4 +149,3 @@ export function SubmissionForm() {
     </>
   );
 }
-

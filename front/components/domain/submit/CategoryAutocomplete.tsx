@@ -22,11 +22,13 @@ import { chosungIncludes } from "@/lib/chosung";
 
 // 초성 검색이 가능한 카테고리 선택 컴포넌트입니다.
 const CATEGORIES = [
-  { value: "cosmetics", label: "화장품" },
-  { value: "electronics", label: "전자기기" },
+  { value: "cosmetics", label: "뷰티/화장품" },
+  { value: "electronics", label: "IT/전자제품" },
   { value: "fashion", label: "패션/의류" },
-  { value: "food", label: "식품" },
-  { value: "furniture", label: "가구/인테리어" },
+  { value: "food", label: "F&B" },
+  { value: "finacial", label: "금융/보험" },
+  { value: "car", label: "자동차" },
+  { value: "furniture", label: "부동산" },
   { value: "health", label: "건강/의료" },
   { value: "travel", label: "여행/레저" },
   { value: "education", label: "교육" },
