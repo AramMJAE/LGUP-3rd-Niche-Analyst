@@ -9,6 +9,17 @@ import {
 
 // API 클라이언트 기본 설정
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+  
+export async function fetchPredictionChartData(submitNum: string) {
+  const res = await fetch(`/api/analysis/${submitNum}/prediction-chart`);
+  const data = await res.json();
+  if (!res.ok || data.error) {
+    // 에러 응답일 때 error 필드 포함
+    return { error: data.error || "예측 차트 데이터를 불러오지 못했습니다." };
+  }
+  return data; // { labels: [...], values: [...] }
+}
+
 
 class ApiClient {
   private baseUrl: string;
@@ -158,10 +169,10 @@ export const createMockReports = (): ReportItem[] => [
   {
     id: "RPT-001",
     productName: "포카리스웨트",
-    category: "식품 / 음료 / 이온음료",
+    category: "F&B",
     status: "completed",
-    createdAt: "2024-09-01T10:30:00Z",
-    completedAt: "2024-09-01T10:32:00Z"
+    createdAt: "2025-09-01T10:30:00Z",
+    completedAt: "2025-09-01T10:32:00Z"
   },
   {
     id: "RPT-002", 
@@ -198,11 +209,11 @@ export const createMockReports = (): ReportItem[] => [
 export const createMockAnalysisResult = (submitNum: string): AnalysisResult => ({
   submitNum: submitNum,
   productName: "포카리스웨트",
-  category: "식품",
+  category: "F&B",
   subCategory: "음료 / 이온음료", 
   status: "completed",
-  createdAt: "2024-09-01T10:30:00Z",
-  completedAt: "2024-09-01T10:32:00Z",
+  createdAt: "2025-09-01T10:30:00Z",
+  completedAt: "2025-09-01T10:32:00Z",
   marketingTargets: [
     {
       rank: 1,
@@ -250,8 +261,8 @@ export const createMockAnalysisResult = (submitNum: string): AnalysisResult => (
     }
   ],
   roiMetrics: {
-    top10: 3.0,
-    top50: 2.1,
-    top80: 1.6
+    top10: 309.75,
+    top50: 177.08,
+    top80: 130.01
   }
 });

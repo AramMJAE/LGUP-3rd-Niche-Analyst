@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
 
 // .env.local 파일에서 환경 변수를 가져옵니다.
 const supabase = createClient(
